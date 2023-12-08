@@ -24,11 +24,11 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
-    
+
     @Autowired
     private JwtServices jwtServices;
     @Autowired
-    private  UserService userService;
+    private UserService userService;
 
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -47,17 +47,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (StringUtils.isNotEmpty(userEmail) && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userService.userDetailsService().loadUserByUsername(userEmail);
 
-            if(jwtServices.isTokenValid(jwt, userDetails)){
+            if (jwtServices.isTokenValid(jwt, userDetails)) {
                 SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                    userDetails,
-                    null,
-                    userDetails.getAuthorities());
-                
-                    token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    securityContext.setAuthentication(token);
-                    SecurityContextHolder.setContext(securityContext);
+                        userDetails,
+                        null,
+                        userDetails.getAuthorities());
+
+                token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                securityContext.setAuthentication(token);
+                SecurityContextHolder.setContext(securityContext);
             }
+
         }
         filterChain.doFilter(request, response);
 

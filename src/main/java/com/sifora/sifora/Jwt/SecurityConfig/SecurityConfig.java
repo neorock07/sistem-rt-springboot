@@ -38,8 +38,8 @@ public class SecurityConfig{
         ).authorizeHttpRequests(
             req -> req.requestMatchers("/api/v1/auth/**")
                     .permitAll()
-                    .requestMatchers("/api/v1/superadmin").hasAnyAuthority(Role.SUPERADMIN.name())
-                    .requestMatchers("/api/v1/admin").hasAnyAuthority(Role.ADMIN.name())
+                    // .requestMatchers("/api/v1/superadmin").hasAnyAuthority(Role.SUPERADMIN.name())
+                    .requestMatchers("/api/v1/**").permitAll()
                     .anyRequest().authenticated()
         ).sessionManagement(
             manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -3,9 +3,12 @@ package com.sifora.sifora.Entity;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -21,17 +24,12 @@ public class Keluarga implements Serializable{
 
     }
 
-    public Keluarga(Keluarga kel){
-        this.id = kel.getId();
-        this.anggota = kel.getAnggota();
-    }
-
     @jakarta.persistence.Id
     private String id;
 
-    @OneToMany(mappedBy = "keluarga_id")
+    @JsonIgnoreProperties("keluarga")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "keluarga_id", cascade = CascadeType.ALL)
     private List<Anggota> anggota;
 
-    public void setId(Long id2) {
-    }
+    
 }

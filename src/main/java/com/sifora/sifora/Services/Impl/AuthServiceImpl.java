@@ -13,9 +13,11 @@ import com.sifora.sifora.DTO.JwtResponse;
 import com.sifora.sifora.DTO.LoginDTO;
 import com.sifora.sifora.DTO.RefreshTokenResponse;
 import com.sifora.sifora.DTO.RegisterDTO;
+import com.sifora.sifora.Entity.Keluarga;
 import com.sifora.sifora.Entity.Role;
 import com.sifora.sifora.Entity.User;
 import com.sifora.sifora.Jwt.Services.JwtServices;
+import com.sifora.sifora.Repository.RepoKeluarga;
 import com.sifora.sifora.Repository.RepoUser;
 import com.sifora.sifora.Services.AuthService;
 
@@ -29,6 +31,9 @@ public class AuthServiceImpl implements AuthService {
     private final RepoUser repo;
 
     @Autowired
+    private final RepoKeluarga repoKel;
+
+    @Autowired
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -36,16 +41,21 @@ public class AuthServiceImpl implements AuthService {
 
     private final JwtServices jwtServices;
 
-    public User register(RegisterDTO req){
+    public RegisterDTO register(RegisterDTO req){
         User user = new User();
+        //simpan ke tabel keluarga
+        Keluarga kel = new Keluarga();
+        kel.setId(req.getId());
+        repoKel.save(kel);
         
+        //simpan ke tabel user
         user.setId(req.getId());
         user.setEmail(req.getEmail());
         user.setUsername(req.getUsername());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(Role.ADMIN);
-
-        return repo.save(user);
+        repo.save(user);
+        return req;
     }
 
     public JwtResponse login(LoginDTO req){
@@ -57,6 +67,10 @@ public class AuthServiceImpl implements AuthService {
         JwtResponse response = new JwtResponse();
         response.setToken(jwt);
         response.setRefreshToken(refreshToken);
+        response.setEmail(req.getEmail());
+        response.setPassword(passwordEncoder.encode(req.getPassword()));
+        response.setRole(user.getRole());
+        response.setUsername(user.getUsername());
         return response;
     }
 

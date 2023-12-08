@@ -8,21 +8,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sifora.sifora.Entity.User;
-import com.sifora.sifora.Services.AuthService;
-import com.sifora.sifora.Services.Impl.AuthServiceImpl;
+import com.sifora.sifora.Jwt.Services.JwtServices;
+import com.sifora.sifora.Services.Admin.AdminUserService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/admin")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-public class AdminController {
-    
+public class AdminUserController {
+
     @Autowired
-    AuthServiceImpl serv;
+    AdminUserService serv;
 
     @GetMapping()
     public List<User> getUsers() {
-       return serv.findAll();
+
+        return serv.findAll();
     }
+
 }

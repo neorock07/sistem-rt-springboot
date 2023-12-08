@@ -7,7 +7,7 @@ import com.sifora.sifora.DTO.RegisterDTO;
 import com.sifora.sifora.Entity.User;
 
 public interface AuthService {
-    public User register(RegisterDTO req);
+    public RegisterDTO register(RegisterDTO req);
 
     public JwtResponse login(LoginDTO req);
 

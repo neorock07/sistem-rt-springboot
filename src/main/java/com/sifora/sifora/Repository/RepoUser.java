@@ -13,5 +13,6 @@ public interface RepoUser extends JpaRepository<User, String> {
    public Optional<User> findById(String id);
    public Optional<User> findByEmail(String id);
    public Optional<User> findByUsername(String username);
+   // public Optional<User> findByRole(String role);
 
 }   

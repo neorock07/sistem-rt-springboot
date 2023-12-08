@@ -38,10 +38,6 @@ public class User implements UserDetails {
   @Column(name = "password")
   private String password;
 
-//   private String roles;
-
-//   @ManyToOne()
-//   @JoinColumn(name = "role_id", referencedColumnName = "id")
   private Role role;
 
   @OneToOne

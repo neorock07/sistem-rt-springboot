@@ -23,6 +23,9 @@ public class JwtServicesImpl implements JwtServices {
     @Value("${jwt.expirationMs}")
     private int jwtExpirationMs;
 
+    @Value("${jwt.expirationRefMs}")
+    private int jwtRefTokenMs;
+
     @Value("${jwt.secret}")
     private String jwtKey;
 
@@ -65,7 +68,7 @@ public class JwtServicesImpl implements JwtServices {
     public String generateRefreshToken(HashMap<String, Object> claim, UserDetails userDetails) {
         return Jwts.builder().setClaims(claim).setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtRefTokenMs))
                 .signWith(getSignedKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
