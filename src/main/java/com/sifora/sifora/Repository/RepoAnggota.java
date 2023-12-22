@@ -7,4 +7,5 @@ import com.sifora.sifora.Entity.Anggota;
 
 @Repository
 public interface RepoAnggota extends JpaRepository<Anggota, String> {
+    
 }

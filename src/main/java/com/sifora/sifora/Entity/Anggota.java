@@ -3,6 +3,8 @@ package com.sifora.sifora.Entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -41,6 +43,7 @@ public class Anggota implements Serializable{
     private String no_telp;
 
     @Column(name = "tgl_lahir")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tgl_lahir;
 
     @Column(name = "tempat_lahir", length = 50)
@@ -51,6 +54,9 @@ public class Anggota implements Serializable{
     
     @Column(name="pekerjaan", length = 20)
     private String pekerjaan;
+    
+    @Column(name="status_kawin", length = 20)
+    private String status_kawin;
 
     @Column(name="bangsa", length = 3)
     private String bangsa;
@@ -60,10 +66,13 @@ public class Anggota implements Serializable{
     
     @Column(name="prov", length = 20)
     private String prov;
+    
     @Column(name="kota", length = 25)
     private String kota;
+    
     @Column(name="kecamatan", length = 25)
     private String kecamatan;
+    
     @Column(name="alamat", length = 25)
     private String alamat;
 }

@@ -1,6 +1,7 @@
 package com.sifora.sifora.Services.AnggotaService;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,7 @@ public class AnggotaService {
         anggota.setNegara(req.getNegara());
         anggota.setNama(req.getNama());
         anggota.setTgl_lahir(req.getTgl_lahir());
+        anggota.setStatus_kawin(req.getStatus_kawin()); 
         // anggota.setUser_id(req.getUser_id());
         anggota.setKeluarga_id(req.getKeluarga_id());
         // anggota.setUser_id(user);
@@ -45,6 +47,10 @@ public class AnggotaService {
 
     public List<Anggota> findAll(){
         return repo.findAll();
+    }
+
+    public Optional<Anggota> findItem(String id){
+        return repo.findById(id);
     }
 
 }

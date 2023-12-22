@@ -28,4 +28,5 @@ public class AnggotaDTO implements Serializable {
     private String kota;
     private String kecamatan;
     private String alamat;
+    private String status_kawin;
 }
