@@ -38,6 +38,7 @@ public class SecurityConfig{
         ).authorizeHttpRequests(
             req -> req.requestMatchers("/api/v1/auth/**")
                     .permitAll()
+                    // .requestMatchers("/api/events/**").permitAll()
                     // .requestMatchers("/api/v1/superadmin").hasAnyAuthority(Role.SUPERADMIN.name())
                     .requestMatchers("/api/v1/**").permitAll()
                     .anyRequest().authenticated()

@@ -16,12 +16,6 @@ public class AnggotaService {
     @Autowired
     RepoAnggota repo;
 
-    // @Autowired
-    // RepoUser repoUser;
-
-    // @Autowired
-    // RepoKeluarga repoKeluarga;
-
     public Anggota create(AnggotaDTO req){
         Anggota anggota = new Anggota();
         anggota.setId(req.getId());

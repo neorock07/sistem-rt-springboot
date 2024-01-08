@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.sifora.sifora.Entity.Event;
 
 @Repository
-public interface RepoEvent extends JpaRepository<Event,Long> {
+public interface RepoEvent extends JpaRepository<Event,String> {
 
     public List<Event> findByDateGreaterThanEqual(Date date);
 }

@@ -3,10 +3,13 @@ package com.sifora.sifora.Entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,8 +22,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "Event")
 public class Event implements Serializable {
     @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
     // @ManyToOne
     // @JoinColumn(name = "role_id", referencedColumnName = "id")
@@ -29,8 +33,14 @@ public class Event implements Serializable {
     @Column(name="title")
     private String title;
 
-    @Column(name = "image")
-    private String image; 
+    @Column(name = "fileName")
+    private String fileName; 
+    
+    @Column(name = "fileType")
+    private String fileType;
+    
+    @Lob
+    private byte[] data;
 
     @Column(name = "deskripsi")
     private String deskripsi;
@@ -44,5 +54,9 @@ public class Event implements Serializable {
     @Column(name = "penyelenggara")
     private String penyelenggara;
 
-    
+    public Event(String fileName, String fileType, byte[] data){
+        this.fileName = fileName;
+        this.data = data;
+        this.fileType = fileType;
+    }
 }

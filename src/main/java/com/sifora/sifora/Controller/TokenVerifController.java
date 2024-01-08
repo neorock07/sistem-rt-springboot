@@ -21,8 +21,8 @@ public class TokenVerifController {
     private TokenService serv;
 
     @PostMapping
-    public ResponseEntity<Token> save(@RequestBody String token){
-        return ResponseEntity.ok(serv.save(token));
+    public Token save(@RequestBody String token){
+        return serv.save(token);
     }
 
     @GetMapping
